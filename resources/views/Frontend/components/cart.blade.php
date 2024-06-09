@@ -37,12 +37,12 @@
                                 Hedef Tipi:
                             </label>
                             <select id="target-select" name="target_type" class="form-control m-b-10">
-                                <option value="" selected>Hedef seçin...</option>
+                                <option value="" selected>TÜMÜ</option>
                                 <option value="HARD">SAM-Ana Operasyon Merkezi-Tam Korumalı</option>
                                 <option value="HARD">SAM-Mobil SAM</option>
                                 <option value="HARD">SAM-Füze Taşıyıcı Araç Sığınağı Tam Korumalı</option>
                                 <option value="HARD">SAM-Radar Bölgesi K2B Merkezi</option>
-                                <option value="HARD">SAM-Füze Bataryası K2 Merkezi/option>
+                                <option value="HARD">SAM-Füze Bataryası K2 Merkezi</option>
                                 <option value="HARD">SAM-Tespit Radarı Kontrol Merkezi</option>
                                 <option value="HARD">SAM-Atış Kontrol Radarı Komuta Merkezi</option>
                                 <option value="HARD">SSM- Mobil SSM Lançeri</option>
