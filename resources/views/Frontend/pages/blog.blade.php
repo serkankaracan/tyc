@@ -51,7 +51,7 @@
                                         <div class="flex-w flex-sb-m p-t-18">
                                             <span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
                                                 <span>
-                                                    <span class="cl4">By</span> {{-- $post->author->name --}}
+                                                    <span class="cl4">Yazar: </span> Serkan KARACAN {{-- $post->author->name --}}
                                                     <span class="cl12 m-l-4 m-r-6">|</span>
                                                 </span>
 
@@ -65,11 +65,12 @@
                                                 </span>
 
                                                 <span>
-                                                    {{-- $post->comments->count() --}} yorum
+                                                    {{-- $post->comments->count() --}} 0 yorum
                                                 </span>
                                             </span>
 
-                                            <a href="{{-- route('blog-detail', ['id' => $post->id]) --}}" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
+                                            <a href="{{ route('blogDetay', ['slug' => $post->slug]) }}"
+                                                class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
                                                 Devamını oku
                                                 <i class="fa fa-long-arrow-right m-l-9"></i>
                                             </a>
@@ -82,15 +83,28 @@
                         @endif
 
                         <!-- Pagination -->
-                        <div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
-                            <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-                                1
-                            </a>
+                        @if ($posts->hasPages())
+                            <div class="flex-c-m flex-w w-full p-t-38">
+                                @if ($posts->previousPageUrl())
+                                    <a href="{{ $posts->previousPageUrl() }}"
+                                        class="flex-c-m how-pagination1 trans-04 m-all-7">
+                                        < </a>
+                                @endif
+                                @for ($i = 1; $i <= $posts->lastPage(); $i++)
+                                    <a href="{{ $posts->url($i) }}"
+                                        class="flex-c-m how-pagination1 trans-04 m-all-7{{ $i == $posts->currentPage() ? ' active-pagination1' : '' }}">
+                                        {{ $i }}
+                                    </a>
+                                @endfor
+                                @if ($posts->nextPageUrl())
+                                    <a href="{{ $posts->nextPageUrl() }}"
+                                        class="flex-c-m how-pagination1 trans-04 m-all-7">
+                                        >
+                                    </a>
+                                @endif
+                            </div>
+                        @endif
 
-                            <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
-                                2
-                            </a>
-                        </div>
                     </div>
                 </div>
 

@@ -6,18 +6,18 @@
     <!-- breadcrumb -->
     <div class="container">
         <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-            <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
-                Home
+            <a href="{{ route('AnaSayfa') }}" class="stext-109 cl8 hov-cl1 trans-04">
+                Ana Sayfa
                 <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
 
-            <a href="blog.html" class="stext-109 cl8 hov-cl1 trans-04">
+            <a href="{{ route('Blog') }}" class="stext-109 cl8 hov-cl1 trans-04">
                 Blog
                 <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
 
             <span class="stext-109 cl4">
-                8 Inspiring Ways to Wear Dresses in the Winter
+                {{ $post->title }}
             </span>
         </div>
     </div>
@@ -31,15 +31,17 @@
                     <div class="p-r-45 p-r-0-lg">
                         <!--  -->
                         <div class="wrap-pic-w how-pos5-parent">
-                            <img src="{{ asset('frontend_assets/images/blog-04.jpg') }}" alt="IMG-BLOG">
+
+                            <img src="{{ $post->image ? asset('storage/' . $post->image) : asset('frontend_assets/images/default.jpg') }}"
+                                alt="IMG-BLOG">
 
                             <div class="flex-col-c-m size-123 bg9 how-pos5">
                                 <span class="ltext-107 cl2 txt-center">
-                                    22
+                                    {{ \Carbon\Carbon::parse($post->created_at)->format('d') }}
                                 </span>
 
                                 <span class="stext-109 cl3 txt-center">
-                                    Jan 2018
+                                    {{ \Carbon\Carbon::parse($post->created_at)->format('M Y') }}
                                 </span>
                             </div>
                         </div>
@@ -47,75 +49,62 @@
                         <div class="p-t-32">
                             <span class="flex-w flex-m stext-111 cl2 p-b-19">
                                 <span>
-                                    <span class="cl4">By</span> Admin
+                                    <span class="cl4">Yazar: </span> Serkan KARACAN
                                     <span class="cl12 m-l-4 m-r-6">|</span>
                                 </span>
 
                                 <span>
-                                    22 Jan, 2018
+                                    {{ \Carbon\Carbon::parse($post->created_at)->format('d M Y') }}
                                     <span class="cl12 m-l-4 m-r-6">|</span>
                                 </span>
 
                                 <span>
-                                    StreetStyle, Fashion, Couple
+                                    @foreach ($post->tags as $tag)
+                                        {{ $tag->name }}@if (!$loop->last)
+                                            ,
+                                        @endif
+                                    @endforeach
                                     <span class="cl12 m-l-4 m-r-6">|</span>
                                 </span>
 
                                 <span>
-                                    8 Comments
+                                    0 yorum
                                 </span>
                             </span>
 
                             <h4 class="ltext-109 cl2 p-b-28">
-                                8 Inspiring Ways to Wear Dresses in the Winter
+                                {{ $post->title }}
                             </h4>
 
                             <p class="stext-117 cl6 p-b-26">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet est vel orci luctus
-                                sollicitudin. Duis eleifend vestibulum justo, varius semper lacus condimentum dictum. Donec
-                                pulvinar a magna ut malesuada. In posuere felis diam, vel sodales metus accumsan in. Duis
-                                viverra dui eu pharetra pellentesque. Donec a eros leo. Quisque sed ligula vitae lorem
-                                efficitur faucibus. Praesent sit amet imperdiet ante. Nulla id tellus auctor, dictum libero
-                                a, malesuada nisi. Nulla in porta nibh, id vestibulum ipsum. Praesent dapibus tempus erat
-                                quis aliquet. Donec ac purus id sapien condimentum feugiat.
+                                {!! $post->content !!}
                             </p>
 
-                            <p class="stext-117 cl6 p-b-26">
-                                Praesent vel mi bibendum, finibus leo ac, condimentum arcu. Pellentesque sem ex, tristique
-                                sit amet suscipit in, mattis imperdiet enim. Integer tempus justo nec velit fringilla, eget
-                                eleifend neque blandit. Sed tempor magna sed congue auctor. Mauris eu turpis eget tortor
-                                ultricies elementum. Phasellus vel placerat orci, a venenatis justo. Phasellus faucibus
-                                venenatis nisl vitae vestibulum. Praesent id nibh arcu. Vivamus sagittis accumsan felis,
-                                quis vulputate
-                            </p>
                         </div>
 
                         <div class="flex-w flex-t p-t-16">
                             <span class="size-216 stext-116 cl8 p-t-4">
-                                Tags
+                                Etiketler:
                             </span>
-
                             <div class="flex-w size-217">
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Streetstyle
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Crafts
-                                </a>
+                                &emsp;
+                                @foreach ($post->tags as $tag)
+                                    <a href="#"
+                                        class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                        {{ $tag->name }}
+                                    </a>
+                                @endforeach
                             </div>
                         </div>
 
                         <!--  -->
                         <div class="p-t-40">
                             <h5 class="mtext-113 cl2 p-b-12">
-                                Leave a Comment
+                                Yorum yap
                             </h5>
 
                             <p class="stext-107 cl6 p-b-40">
-                                Your email address will not be published. Required fields are marked *
+                                Eposta adresiniz yayınlanmayacak. Gerekli alanlar * ile işaretli.
                             </p>
 
                             <form>
@@ -139,7 +128,7 @@
                                 </div>
 
                                 <button class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">
-                                    Post Comment
+                                    Gönder
                                 </button>
                             </form>
                         </div>
@@ -159,39 +148,17 @@
 
                         <div class="p-t-55">
                             <h4 class="mtext-112 cl2 p-b-33">
-                                Categories
+                                Kategoriler
                             </h4>
 
                             <ul>
-                                <li class="bor18">
-                                    <a href="#" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
-                                        Fashion
-                                    </a>
-                                </li>
-
-                                <li class="bor18">
-                                    <a href="#" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
-                                        Beauty
-                                    </a>
-                                </li>
-
-                                <li class="bor18">
-                                    <a href="#" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
-                                        Street Style
-                                    </a>
-                                </li>
-
-                                <li class="bor18">
-                                    <a href="#" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
-                                        Life Style
-                                    </a>
-                                </li>
-
-                                <li class="bor18">
-                                    <a href="#" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
-                                        DIY & Crafts
-                                    </a>
-                                </li>
+                                @foreach ($categories as $category)
+                                    <li class="bor18">
+                                        <a href="#" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
+                                            {{ $category->name }}
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
 
@@ -219,8 +186,7 @@
 
                                 <li class="flex-w flex-t p-b-30">
                                     <a href="#" class="wrao-pic-w size-214 hov-ovelay1 m-r-20">
-                                        <img src="{{ asset('frontend_assets/images/product-min-02.jpg') }}"
-                                            alt="PRODUCT">
+                                        <img src="{{ asset('frontend_assets/images/product-min-02.jpg') }}" alt="PRODUCT">
                                     </a>
 
                                     <div class="size-215 flex-col-t p-t-8">
@@ -236,8 +202,7 @@
 
                                 <li class="flex-w flex-t p-b-30">
                                     <a href="#" class="wrao-pic-w size-214 hov-ovelay1 m-r-20">
-                                        <img src="{{ asset('frontend_assets/images/product-min-03.jpg') }}"
-                                            alt="PRODUCT">
+                                        <img src="{{ asset('frontend_assets/images/product-min-03.jpg') }}" alt="PRODUCT">
                                     </a>
 
                                     <div class="size-215 flex-col-t p-t-8">
@@ -357,38 +322,23 @@
                             </ul>
                         </div>
 
-                        <div class="p-t-50">
-                            <h4 class="mtext-112 cl2 p-b-27">
-                                Tags
-                            </h4>
+                        @if ($tags->isNotEmpty())
+                            <div class="p-t-50">
+                                <h4 class="mtext-112 cl2 p-b-27">
+                                    Etiketler
+                                </h4>
 
-                            <div class="flex-w m-r--5">
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Fashion
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Lifestyle
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Denim
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Streetstyle
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Crafts
-                                </a>
+                                <div class="flex-w m-r--5">
+                                    @foreach ($tags as $tag)
+                                        <a href="#"
+                                            class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                            {{ $tag->name }}
+                                        </a>
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
+                        @endif
+
                     </div>
                 </div>
             </div>

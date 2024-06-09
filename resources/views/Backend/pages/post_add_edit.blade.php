@@ -64,13 +64,11 @@
                                             <input type="hidden" id="croppedImage" name="croppedImage" required>
                                             @if (isset($post) && !empty($post->image))
                                                 <div id="previewImage" class="image-container">
-                                                    <img src="{{ asset('storage/' . $post->image) }}" alt=""
-                                                        class="img-fluid mt-1">
+                                                    <img src="{{ asset('storage/' . $post->image) }}" alt="" class="img-fluid mt-1">
                                                 </div>
                                             @endif
                                             <div class="img-container mt-3" id="previewContainer"></div>
-                                            <input type="file" class="form-control" id="imageInput" name="postImage"
-                                                accept="image/*" {{ isset($post) ? '' : 'required' }}>
+                                            <input type="file" class="form-control" id="imageInput" name="postImage" accept="image/*" {{ isset($post) ? '' : 'required' }}>
                                         </div>
                                     </div>
                                 </div>
@@ -251,9 +249,7 @@
 
                         // Cropper nesnesini oluştur
                         cropper = new Cropper(image, {
-                            aspectRatio: parseInt(document.getElementById('input-width')
-                                .value) / parseInt(document.getElementById('input-length')
-                                .value), ///_aspectRatio,
+                            aspectRatio: parseInt(document.getElementById('input-width').value) / parseInt(document.getElementById('input-length').value), ///_aspectRatio,
                             viewMode: 1,
                             autoCropArea: 1,
                             responsive: true
@@ -271,12 +267,17 @@
 
                 // Eğer cropper nesnesi varsa kırpılmış resmi al
                 if (cropper) {
-                    let croppedDataUrl = cropper.getCroppedCanvas().toDataURL('image/jpeg');
-                    croppedImageInput.value = croppedDataUrl;
+                    cropper.getCroppedCanvas().toBlob(function(blob) {
+                        let reader = new FileReader();
+                        reader.onloadend = function() {
+                            croppedImageInput.value = reader.result;
+                            form.submit();
+                        }
+                        reader.readAsDataURL(blob);
+                    }, 'image/jpeg');
+                } else {
+                    form.submit();
                 }
-
-                // Formu gönder
-                this.submit();
             });
         });
     </script>

@@ -65,10 +65,35 @@ class PostController extends Controller
 
         // Kullanıcı resim yüklediyse işlemler yapılır
         if ($request->hasFile('postImage')) {
-            $image = $request->file('postImage');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->storeAs('public/post_images', $imageName);
-            $post->image = 'post_images/' . $imageName;
+            // Get base64 image data
+            $croppedImageData = $request->input('croppedPostImage');
+
+            if ($croppedImageData) {
+                $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $croppedImageData));
+
+                // Base64 kodunu dosyaya yaz
+                $tempImagePath = tempnam(sys_get_temp_dir(), 'cropped_post_image');
+                file_put_contents($tempImagePath, $image);
+
+                $imageData = $request->file('postImage');
+                // Generate unique image name
+                $imageName = Str::slug(pathinfo($imageData->getClientOriginalName(), PATHINFO_FILENAME), '_') . '_' . uniqid();
+                $imageExtension = $imageData->getClientOriginalExtension();
+                $fullImageName = $imageName . '.' . $imageExtension;
+
+                // Save image to storage
+                $storagePath = Storage::putFileAs('public/post_images', new File($tempImagePath), $fullImageName);
+
+                // Dosyayı sildikten sonra
+                unlink($tempImagePath);
+
+                $post->image = 'post_images/' . $fullImageName;
+            } else {
+                $image = $request->file('postImage');
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->storeAs('public/post_images', $imageName);
+                $post->image = 'post_images/' . $imageName;
+            }
         }
 
         // Makale kaydedilir ve başarılı mesajı döndürülür

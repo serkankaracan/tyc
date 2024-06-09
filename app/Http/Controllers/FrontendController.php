@@ -84,12 +84,30 @@ class FrontendController extends Controller
 
     public function blog()
     {
-        $posts = Post::paginate(6);
+        $posts = Post::where('status', 1)->paginate(6);
         $categories = Category::all();
         $tags = Tag::all();
 
         return view('Frontend.pages.blog', compact(
             'posts',
+            'categories',
+            'tags'
+        ));
+    }
+
+    public function blogDetail($slug)
+    {
+        $post = Post::where('slug', $slug)->first();
+
+        if (!$post) {
+            abort(404);
+        }
+
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('Frontend.pages.blog_detail', compact(
+            'post',
             'categories',
             'tags'
         ));
