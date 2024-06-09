@@ -2,7 +2,7 @@
     <div class="wrap-header-mobile">
         <!-- Logo moblie -->
         <div class="logo-mobile">
-            <a href="{{ route('AnaSayfa') }}"><img src="{{ asset('frontend_assets/images/icons/logo-01.png') }}"
+            <a href="{{ route('AnaSayfa') }}"><img src="{{ asset('frontend_assets/images/icons/logo-03.png') }}"
                     alt="IMG-LOGO"></a>
         </div>
 

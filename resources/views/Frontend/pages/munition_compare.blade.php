@@ -35,12 +35,13 @@
                                 <tr>
                                     <td>Resim</td>
                                     @foreach ($munitions as $munition)
-                                        <td>
-                                            @if ($munition->images->isNotEmpty())
-                                                <img src="{{ asset('storage/' . $munition->images->first()->url) }}"
-                                                    alt="Mühimmat Resmi" style="max-width: 100px; max-height: 100px;">
-                                            @endif
-                                        </td>
+                                    <td>
+                                        @if ($munition->images->isNotEmpty())
+                                            <a href="{{ route('muhimmatDetay', $munition->slug) }}" target="_blank">
+                                                <img src="{{ asset('storage/' . $munition->images->first()->url) }}" alt="Mühimmat Resmi" style="max-width: 100px; max-height: 100px;">
+                                            </a>
+                                        @endif
+                                    </td>
                                     @endforeach
                                 </tr>
                                 @foreach ($attributes as $attribute)

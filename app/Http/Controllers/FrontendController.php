@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Munition;
+use App\Models\Post;
 use App\Models\MunitionAttribute;
 use App\Models\Category;
 use App\Models\Tag;
@@ -34,6 +35,7 @@ class FrontendController extends Controller
         $targetType = $request->input('target_type');
         $minRange = $request->input('min');
         $maxRange = $request->input('max');
+        $categoryId = $request->input('category_id');
 
         // Menzil adında bir özellik var mı kontrol et
         $attribute = Attribute::where('name', 'like', '%menzil%')->first();
@@ -54,11 +56,22 @@ class FrontendController extends Controller
             $munitionIds = $query->pluck('munition_id');
 
             $munitions = Munition::whereIn('id', $munitionIds)
-                ->where('target_type', $targetType)
+                ->when($targetType, function ($query) use ($targetType) {
+                    return $query->where('target_type', $targetType);
+                })
+                ->when($categoryId, function ($query) use ($categoryId) {
+                    return $query->where('category_id', $categoryId);
+                })
                 ->get();
         } else {
-            // Menzil özelliği yoksa veya min ve max değerleri boşsa sadece target_type üzerinden sorgu yap
-            $munitions = Munition::where('target_type', $targetType)->get();
+            // Menzil özelliği yoksa veya min ve max değerleri boşsa sadece target_type ve category_id üzerinden sorgu yap
+            $munitions = Munition::when($targetType, function ($query) use ($targetType) {
+                return $query->where('target_type', $targetType);
+            })
+            ->when($categoryId, function ($query) use ($categoryId) {
+                return $query->where('category_id', $categoryId);
+            })
+            ->get();
         }
 
         return view('Frontend.pages.munition_compare', compact(
@@ -71,12 +84,14 @@ class FrontendController extends Controller
 
     public function blog()
     {
-        $munitions = Munition::paginate(9);
+        $posts = Post::paginate(6);
         $categories = Category::all();
+        $tags = Tag::all();
 
         return view('Frontend.pages.blog', compact(
-            'munitions',
-            'categories'
+            'posts',
+            'categories',
+            'tags'
         ));
     }
 

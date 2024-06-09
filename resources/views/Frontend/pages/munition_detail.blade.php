@@ -24,7 +24,7 @@
             @endphp
 
             @foreach ($categories as $category)
-                <a href="#" class="stext-109 cl8 hov-cl1 trans-04">
+                <a href="{{ route('kategoriFiltresi', $category->slug) }}" class="stext-109 cl8 hov-cl1 trans-04">
                     {{ $category->name }}
                     <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
                 </a>
@@ -102,7 +102,7 @@
                             @foreach ($munition->attributes as $attribute)
                                 <li class="flex-w flex-t p-b-7">
                                     <span class="stext-102 cl3 size-205">
-                                        {{ $attribute->name }}
+                                        <strong>{{ $attribute->name }}</strong>
                                     </span>
                                     <span class="stext-102 cl6 size-206">
                                         @php
@@ -154,7 +154,7 @@
                         <div class="tab-pane fade show active" id="description" role="tabpanel">
                             <div class="how-pos2 p-lr-15-md">
                                 <p class="stext-102 cl6">
-                                    {{ $munition->description }}
+                                    {!! nl2br(e($munition->description)) !!}
                                 </p>
                             </div>
                         </div>
@@ -167,7 +167,7 @@
                                         @foreach ($munition->attributes as $attribute)
                                             <li class="flex-w flex-t p-b-7">
                                                 <span class="stext-102 cl3 size-205">
-                                                    {{ $attribute->name }}
+                                                    <strong>{{ $attribute->name }}:</strong>
                                                 </span>
                                                 <span class="stext-102 cl6 size-206">
                                                     @php

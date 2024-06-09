@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('munition_attributes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('munition_id')->constrained('munitions')->onDelete('cascade');
-            $table->foreignId('attribute_id')->constrained('attributes');
+            $table->foreignId('attribute_id')->constrained('attributes')->onDelete('cascade');
             $table->string('value', 255)->nullable();
             $table->decimal('score',  8, 2)->default(0);
             $table->decimal('min',  8, 2)->nullable();

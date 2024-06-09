@@ -129,7 +129,7 @@
                 <div class="flex-c-m flex-w w-full p-t-38">
                     @if ($munitions->previousPageUrl())
                         <a href="{{ $munitions->previousPageUrl() }}" class="flex-c-m how-pagination1 trans-04 m-all-7">
-                            << /a>
+                            < </a>
                     @endif
                     @for ($i = 1; $i <= $munitions->lastPage(); $i++)
                         <a href="{{ $munitions->url($i) }}"

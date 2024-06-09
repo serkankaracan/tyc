@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('slug')->unique();
             $table->enum('option', ['Tam Sayı', 'Ondalık', 'Yazı', 'Doğrulama', 'Aralık', 'Renk', 'Resim', 'Buton', 'Liste']);
             $table->text('description')->nullable();
-            $table->decimal('multiplier', 4, 4)->default(0);
+            $table->decimal('multiplier', 10, 4)->default(0);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

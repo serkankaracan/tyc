@@ -18,167 +18,68 @@
             <div class="row">
                 <div class="col-md-8 col-lg-9 p-b-80">
                     <div class="p-r-45 p-r-0-lg">
-                        <!-- item blog -->
-                        <div class="p-b-63">
-                            <a href="blog-detail.html" class="hov-img0 how-pos5-parent">
-                                <img src="{{ asset('frontend_assets/images/blog-04.jpg') }}" alt="IMG-BLOG">
+                        @if (isset($posts) && $posts->isNotEmpty())
+                            @foreach ($posts as $post)
+                                <!-- item blog -->
+                                <div class="p-b-63">
+                                    <a href="{{-- route('blog-detail', ['id' => $post->id]) --}}" class="hov-img0 how-pos5-parent">
+                                        <img src="{{ $post->image ? asset('storage/' . $post->image) : asset('frontend_assets/images/default.jpg') }}"
+                                            alt="IMG-BLOG">
 
-                                <div class="flex-col-c-m size-123 bg9 how-pos5">
-                                    <span class="ltext-107 cl2 txt-center">
-                                        22
-                                    </span>
+                                        <div class="flex-col-c-m size-123 bg9 how-pos5">
+                                            <span class="ltext-107 cl2 txt-center">
+                                                {{ \Carbon\Carbon::parse($post->created_at)->format('d') }}
+                                            </span>
 
-                                    <span class="stext-109 cl3 txt-center">
-                                        Jan 2018
-                                    </span>
-                                </div>
-                            </a>
-
-                            <div class="p-t-32">
-                                <h4 class="p-b-15">
-                                    <a href="blog-detail.html" class="ltext-108 cl2 hov-cl1 trans-04">
-                                        8 Inspiring Ways to Wear Dresses in the Winter
+                                            <span class="stext-109 cl3 txt-center">
+                                                {{ \Carbon\Carbon::parse($post->created_at)->format('M Y') }}
+                                            </span>
+                                        </div>
                                     </a>
-                                </h4>
 
-                                <p class="stext-117 cl6">
-                                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                    himenaeos. Fusce eget dictum tortor. Donec dictum vitae sapien eu varius
-                                </p>
+                                    <div class="p-t-32">
+                                        <h4 class="p-b-15">
+                                            <a href="{{-- route('blog-detail', ['id' => $post->id]) --}}" class="ltext-108 cl2 hov-cl1 trans-04">
+                                                {{ $post->title }}
+                                            </a>
+                                        </h4>
 
-                                <div class="flex-w flex-sb-m p-t-18">
-                                    <span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
-                                        <span>
-                                            <span class="cl4">By</span> Admin
-                                            <span class="cl12 m-l-4 m-r-6">|</span>
-                                        </span>
+                                        <p class="stext-117 cl6">
+                                            {{ Str::limit($post->summary, 150) }}
+                                        </p>
 
-                                        <span>
-                                            StreetStyle, Fashion, Couple
-                                            <span class="cl12 m-l-4 m-r-6">|</span>
-                                        </span>
+                                        <div class="flex-w flex-sb-m p-t-18">
+                                            <span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
+                                                <span>
+                                                    <span class="cl4">By</span> {{-- $post->author->name --}}
+                                                    <span class="cl12 m-l-4 m-r-6">|</span>
+                                                </span>
 
-                                        <span>
-                                            8 Comments
-                                        </span>
-                                    </span>
+                                                <span>
+                                                    @foreach ($post->tags as $tag)
+                                                        {{ $tag->name }}@if (!$loop->last)
+                                                            ,
+                                                        @endif
+                                                    @endforeach
+                                                    <span class="cl12 m-l-4 m-r-6">|</span>
+                                                </span>
 
-                                    <a href="blog-detail.html" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
-                                        Continue Reading
+                                                <span>
+                                                    {{-- $post->comments->count() --}} yorum
+                                                </span>
+                                            </span>
 
-                                        <i class="fa fa-long-arrow-right m-l-9"></i>
-                                    </a>
+                                            <a href="{{-- route('blog-detail', ['id' => $post->id]) --}}" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
+                                                Devamını oku
+                                                <i class="fa fa-long-arrow-right m-l-9"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- item blog -->
-                        <div class="p-b-63">
-                            <a href="blog-detail.html" class="hov-img0 how-pos5-parent">
-                                <img src="{{ asset('frontend_assets/images/blog-05.jpg') }}" alt="IMG-BLOG">
-
-                                <div class="flex-col-c-m size-123 bg9 how-pos5">
-                                    <span class="ltext-107 cl2 txt-center">
-                                        18
-                                    </span>
-
-                                    <span class="stext-109 cl3 txt-center">
-                                        Jan 2018
-                                    </span>
-                                </div>
-                            </a>
-
-                            <div class="p-t-32">
-                                <h4 class="p-b-15">
-                                    <a href="blog-detail.html" class="ltext-108 cl2 hov-cl1 trans-04">
-                                        The Great Big List of Men’s Gifts for the Holidays
-                                    </a>
-                                </h4>
-
-                                <p class="stext-117 cl6">
-                                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                    himenaeos. Fusce eget dictum tortor. Donec dictum vitae sapien eu varius
-                                </p>
-
-                                <div class="flex-w flex-sb-m p-t-18">
-                                    <span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
-                                        <span>
-                                            <span class="cl4">By</span> Admin
-                                            <span class="cl12 m-l-4 m-r-6">|</span>
-                                        </span>
-
-                                        <span>
-                                            StreetStyle, Fashion, Couple
-                                            <span class="cl12 m-l-4 m-r-6">|</span>
-                                        </span>
-
-                                        <span>
-                                            8 Comments
-                                        </span>
-                                    </span>
-
-                                    <a href="blog-detail.html" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
-                                        Continue Reading
-
-                                        <i class="fa fa-long-arrow-right m-l-9"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- item blog -->
-                        <div class="p-b-63">
-                            <a href="blog-detail.html" class="hov-img0 how-pos5-parent">
-                                <img src="{{ asset('frontend_assets/images/blog-06.jpg') }}" alt="IMG-BLOG">
-
-                                <div class="flex-col-c-m size-123 bg9 how-pos5">
-                                    <span class="ltext-107 cl2 txt-center">
-                                        16
-                                    </span>
-
-                                    <span class="stext-109 cl3 txt-center">
-                                        Jan 2018
-                                    </span>
-                                </div>
-                            </a>
-
-                            <div class="p-t-32">
-                                <h4 class="p-b-15">
-                                    <a href="blog-detail.html" class="ltext-108 cl2 hov-cl1 trans-04">
-                                        5 Winter-to-Spring Fashion Trends to Try Now
-                                    </a>
-                                </h4>
-
-                                <p class="stext-117 cl6">
-                                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                    himenaeos. Fusce eget dictum tortor. Donec dictum vitae sapien eu varius
-                                </p>
-
-                                <div class="flex-w flex-sb-m p-t-18">
-                                    <span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
-                                        <span>
-                                            <span class="cl4">By</span> Admin
-                                            <span class="cl12 m-l-4 m-r-6">|</span>
-                                        </span>
-
-                                        <span>
-                                            StreetStyle, Fashion, Couple
-                                            <span class="cl12 m-l-4 m-r-6">|</span>
-                                        </span>
-
-                                        <span>
-                                            8 Comments
-                                        </span>
-                                    </span>
-
-                                    <a href="blog-detail.html" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
-                                        Continue Reading
-
-                                        <i class="fa fa-long-arrow-right m-l-9"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                            @endforeach
+                        @else
+                            <p>Herhangi bir yazı paylaşılmadı</p>
+                        @endif
 
                         <!-- Pagination -->
                         <div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
@@ -204,43 +105,24 @@
                             </button>
                         </div>
 
-                        <div class="p-t-55">
-                            <h4 class="mtext-112 cl2 p-b-33">
-                                Categories
-                            </h4>
+                        @if ($categories->isNotEmpty())
+                            <div class="p-t-55">
+                                <h4 class="mtext-112 cl2 p-b-33">
+                                    Kategoriler
+                                </h4>
 
-                            <ul>
-                                <li class="bor18">
-                                    <a href="#" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
-                                        Fashion
-                                    </a>
-                                </li>
-
-                                <li class="bor18">
-                                    <a href="#" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
-                                        Beauty
-                                    </a>
-                                </li>
-
-                                <li class="bor18">
-                                    <a href="#" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
-                                        Street Style
-                                    </a>
-                                </li>
-
-                                <li class="bor18">
-                                    <a href="#" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
-                                        Life Style
-                                    </a>
-                                </li>
-
-                                <li class="bor18">
-                                    <a href="#" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
-                                        DIY & Crafts
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                                <ul>
+                                    @foreach ($categories as $category)
+                                        <li class="bor18">
+                                            <a href="#"
+                                                class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
+                                                {{ $category->name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
                         <div class="p-t-65">
                             <h4 class="mtext-112 cl2 p-b-33">
@@ -250,8 +132,7 @@
                             <ul>
                                 <li class="flex-w flex-t p-b-30">
                                     <a href="#" class="wrao-pic-w size-214 hov-ovelay1 m-r-20">
-                                        <img src="{{ asset('frontend_assets/images/product-min-01.jpg') }}"
-                                            alt="PRODUCT">
+                                        <img src="{{ asset('frontend_assets/images/product-min-01.jpg') }}" alt="PRODUCT">
                                     </a>
 
                                     <div class="size-215 flex-col-t p-t-8">
@@ -267,8 +148,7 @@
 
                                 <li class="flex-w flex-t p-b-30">
                                     <a href="#" class="wrao-pic-w size-214 hov-ovelay1 m-r-20">
-                                        <img src="{{ asset('frontend_assets/images/product-min-02.jpg') }}"
-                                            alt="PRODUCT">
+                                        <img src="{{ asset('frontend_assets/images/product-min-02.jpg') }}" alt="PRODUCT">
                                     </a>
 
                                     <div class="size-215 flex-col-t p-t-8">
@@ -284,8 +164,7 @@
 
                                 <li class="flex-w flex-t p-b-30">
                                     <a href="#" class="wrao-pic-w size-214 hov-ovelay1 m-r-20">
-                                        <img src="{{ asset('frontend_assets/images/product-min-03.jpg') }}"
-                                            alt="PRODUCT">
+                                        <img src="{{ asset('frontend_assets/images/product-min-03.jpg') }}" alt="PRODUCT">
                                     </a>
 
                                     <div class="size-215 flex-col-t p-t-8">
@@ -405,38 +284,23 @@
                             </ul>
                         </div>
 
-                        <div class="p-t-50">
-                            <h4 class="mtext-112 cl2 p-b-27">
-                                Tags
-                            </h4>
+                        @if ($tags->isNotEmpty())
+                            <div class="p-t-50">
+                                <h4 class="mtext-112 cl2 p-b-27">
+                                    Etiketler
+                                </h4>
 
-                            <div class="flex-w m-r--5">
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Fashion
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Lifestyle
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Denim
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Streetstyle
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Crafts
-                                </a>
+                                <div class="flex-w m-r--5">
+                                    @foreach ($tags as $tag)
+                                        <a href="#"
+                                            class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                            {{ $tag->name }}
+                                        </a>
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
